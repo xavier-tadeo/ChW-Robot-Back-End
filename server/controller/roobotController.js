@@ -5,7 +5,7 @@ const getRoobots = async (req, res) => {
   res.json(roobotBot);
 };
 
-const postRoobots = async (req, res, next) => {
+const postRoobot = async (req, res, next) => {
   try {
     const roobot = req.body;
     const newRoobot = await Roobot.create(roobot);
@@ -17,7 +17,25 @@ const postRoobots = async (req, res, next) => {
   }
 };
 
+const getRoobotById = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const searchedRoobot = await Roobot.findById(id);
+    if (searchedRoobot) {
+      res.json(searchedRoobot);
+    } else {
+      const error = new Error("This id does not match");
+      error.code = 404;
+      throw error;
+    }
+  } catch (error) {
+    error.code = 400;
+    next(error);
+  }
+};
+
 module.exports = {
   getRoobots,
-  postRoobots,
+  postRoobot,
+  getRoobotById,
 };

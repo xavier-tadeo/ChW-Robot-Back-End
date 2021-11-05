@@ -1,10 +1,16 @@
 const express = require("express");
-const { getRoobots, postRoobots } = require("../controller/roobotController");
+const {
+  getRoobots,
+  postRoobot,
+  getRoobotById,
+} = require("../controller/roobotController");
 
 const roobotRoutes = express.Router();
 
 roobotRoutes.get("/", getRoobots);
 
-roobotRoutes.post("/", postRoobots);
+roobotRoutes.post("/", postRoobot);
+
+roobotRoutes.get("/:idRobot", getRoobotById);
 
 module.exports = roobotRoutes;
