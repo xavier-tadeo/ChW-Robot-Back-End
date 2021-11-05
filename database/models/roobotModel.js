@@ -9,21 +9,23 @@ const roobotSchema = new Schema({
     type: String,
     required: true,
   },
-  speed: {
-    type: Number,
-    required: true,
-    min: 0,
-    max: 10,
-  },
-  endurance: {
-    type: Number,
-    required: true,
-    min: 0,
-    max: 10,
-  },
-  creationDate: {
-    type: String,
-    required: true,
+  features: {
+    speed: {
+      type: Number,
+      required: true,
+      min: 0,
+      max: 10,
+    },
+    endurance: {
+      type: Number,
+      required: true,
+      min: 0,
+      max: 10,
+    },
+    creationDate: {
+      type: String,
+      required: true,
+    },
   },
 });
 
