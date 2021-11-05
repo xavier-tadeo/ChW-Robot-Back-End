@@ -5,7 +5,7 @@ const roobotRoutes = express.Router();
 const roobot = 32;
 
 roobotRoutes.get("/", async (req, res) => {
-  const roobotBot = await roobot.find();
+  const roobotBot = 42;
   res.json(roobotBot);
 });
 

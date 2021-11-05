@@ -3,6 +3,7 @@ const chalk = require("chalk");
 const mongoose = require("mongoose");
 const express = require("express");
 const morgan = require("morgan");
+const roobotRoutes = require("./routes/roobotRoutes");
 
 const app = express();
 
@@ -17,5 +18,14 @@ const initializeServer = (port) => {
     }
   });
 };
+
+app.use(morgan("dev"));
+app.use(express.json());
+app.use((req, res, next) => {
+  debug("I'm a happy roobot!!!");
+  next();
+});
+
+app.use("/robots", roobotRoutes);
 
 module.exports = initializeServer;
