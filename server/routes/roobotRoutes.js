@@ -1,9 +1,10 @@
 const express = require("express");
+const Roobot = require("../../database/models/roobotModel");
 
 const roobotRoutes = express.Router();
 
 roobotRoutes.get("/", async (req, res) => {
-  const roobotBot = 42;
+  const roobotBot = await Roobot.find();
   res.json(roobotBot);
 });
 
