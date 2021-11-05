@@ -5,6 +5,10 @@ const roobotSchema = new Schema({
     type: String,
     required: true,
   },
+  imageSource: {
+    type: String,
+    required: true,
+  },
   speed: {
     type: Number,
     required: true,
@@ -25,4 +29,4 @@ const roobotSchema = new Schema({
 
 const Roobot = model("Roobot", roobotSchema);
 
-module.exports(Roobot);
+module.exports = Roobot;
