@@ -1,24 +1,25 @@
 const Roobot = require("../../database/models/roobotModel");
+const {
+  getRandoomRoobot,
+  getRandoomRoobots,
+} = require("../../mocks/factories");
 
 const { getRoobots, getRoobotById } = require("./roobotController");
 
 jest.mock("../../database/models/roobotModel.js");
 
+let roobot;
+let roobots;
+
+beforeAll(() => {
+  roobot = getRandoomRoobot();
+  roobots = getRandoomRoobots();
+});
+
 describe("Given a getRoobot function", () => {
   describe("When it receives a object res", () => {
     test("Then it should invoke the method json", async () => {
-      const roobot = [
-        {
-          name: "C2P2",
-          imageSource: "url",
-          features: {
-            speed: 10,
-            endurance: 2,
-            creationDate: "1110",
-          },
-        },
-      ];
-      Roobot.find = jest.fn().mockResolvedValue(roobot);
+      Roobot.find = jest.fn().mockResolvedValue(roobots);
       const res = {
         json: jest.fn(),
       };
@@ -26,7 +27,7 @@ describe("Given a getRoobot function", () => {
       await getRoobots(null, res);
 
       expect(Roobot.find).toHaveBeenCalled();
-      expect(res.json).toHaveBeenCalledWith(roobot);
+      expect(res.json).toHaveBeenCalledWith(roobots);
     });
   });
 });
@@ -71,19 +72,8 @@ describe("Given a getRoobotById function", () => {
   });
   describe("When Roobot.findById resolves a C2P2", () => {
     test("Then should res.json with C2P2", async () => {
-      const idRobot = 10;
-      const roobot = [
-        {
-          idRobot,
-          name: "C2P2",
-          imageSource: "url",
-          features: {
-            speed: 10,
-            endurance: 2,
-            creationDate: "1110",
-          },
-        },
-      ];
+      const idRobot = roobots[0].id;
+
       Roobot.findById = jest.fn().mockResolvedValue(roobot);
       const req = {
         params: {
@@ -100,3 +90,7 @@ describe("Given a getRoobotById function", () => {
     });
   });
 });
+
+// describe("Given a postRoobot function", () => {
+//   descibe();
+// });

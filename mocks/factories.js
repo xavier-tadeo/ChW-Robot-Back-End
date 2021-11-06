@@ -1,4 +1,4 @@
-import { datatype, image, lorem, name } from "faker";
+const { datatype, image, lorem, name } = require("faker");
 
 const { Factory } = require("fishery");
 
@@ -16,11 +16,11 @@ const factoryRoobot = Factory.define(({ sequence }) => ({
   },
 }));
 
-const getRoobots = (total = 5) => factoryRoobot.buildList(total);
+const getRandoomRoobots = (total = 5) => factoryRoobot.buildList(total);
 
-const getRoobot = (onlyOne = 1) => factoryRoobot.build(onlyOne);
+const getRandoomRoobot = (onlyOne = 1) => factoryRoobot.build(onlyOne);
 
 module.exports = {
-  getRoobot,
-  getRoobots,
+  getRandoomRoobot,
+  getRandoomRoobots,
 };
