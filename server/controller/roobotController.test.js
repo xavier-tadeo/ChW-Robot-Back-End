@@ -66,6 +66,37 @@ describe("Given a getRoobotById function", () => {
       await getRoobotById(req, res, next);
 
       expect(next).toHaveBeenCalledWith(error);
+      expect(error.code).toBe(400);
+    });
+  });
+  describe("When Roobot.findById resolves a C2P2", () => {
+    test("Then should res.json with C2P2", async () => {
+      const idRobot = 10;
+      const roobot = [
+        {
+          idRobot,
+          name: "C2P2",
+          imageSource: "url",
+          features: {
+            speed: 10,
+            endurance: 2,
+            creationDate: "1110",
+          },
+        },
+      ];
+      Roobot.findById = jest.fn().mockResolvedValue(roobot);
+      const req = {
+        params: {
+          idRobot,
+        },
+      };
+      const res = {
+        json: jest.fn(),
+      };
+
+      await getRoobotById(req, res);
+
+      expect(res.json).toHaveBeenCalledWith(roobot);
     });
   });
 });
