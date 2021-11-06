@@ -1,6 +1,6 @@
 const Roobot = require("../../database/models/roobotModel");
 
-const { getRoobots } = require("./roobotController");
+const { getRoobots, getRoobotById } = require("./roobotController");
 
 jest.mock("../../database/models/roobotModel.js");
 
@@ -27,6 +27,28 @@ describe("Given a getRoobot function", () => {
 
       expect(Roobot.find).toHaveBeenCalled();
       expect(res.json).toHaveBeenCalledWith(roobot);
+    });
+  });
+});
+
+describe("Given a getRoobotById function", () => {
+  describe("When it receives a request with id 10, a res object and next function", () => {
+    test("Then it should invoke Roobot.ById with a 10", async () => {
+      Roobot.findById = jest.fn().mockResolvedValue({});
+      const idRobot = 10;
+      const req = {
+        params: {
+          idRobot,
+        },
+      };
+      const res = {
+        json: () => {},
+      };
+      const next = () => {};
+
+      await getRoobotById(req, res, next);
+
+      expect(Roobot.findById).toBeCalledWith(idRobot);
     });
   });
 });
