@@ -26,7 +26,7 @@ const getRoobotById = async (req, res, next) => {
     } else {
       const error = new Error("This id does not match");
       error.code = 404;
-      throw error;
+      next(error);
     }
   } catch (error) {
     error.code = 400;
