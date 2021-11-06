@@ -51,4 +51,21 @@ describe("Given a getRoobotById function", () => {
       expect(Roobot.findById).toBeCalledWith(idRobot);
     });
   });
+  describe("When Roobot.findById rejects", () => {
+    test("Then it should invoke the next function with the error rejected", async () => {
+      const error = {};
+      Roobot.findById = jest.fn().mockRejectedValue(error);
+      const req = {
+        params: {
+          idRobot: 10,
+        },
+      };
+      const res = {};
+      const next = jest.fn();
+
+      await getRoobotById(req, res, next);
+
+      expect(next).toHaveBeenCalledWith(error);
+    });
+  });
 });
