@@ -4,19 +4,9 @@ const {
   postRoobot,
   getRoobotById,
 } = require("../controller/roobotController");
+const middlewareTooken = require("../middleware/roobotMiddleware");
 
 const roobotRoutes = express.Router();
-
-const middlewareTooken = (req, res, next) => {
-  if (req.query.token === process.env.TOOKEN) {
-    next();
-  } else {
-    const error = new Error();
-    error.code = 401;
-    error.message = "Your not autoritzate";
-    next(error);
-  }
-};
 
 roobotRoutes.get("/", getRoobots);
 
