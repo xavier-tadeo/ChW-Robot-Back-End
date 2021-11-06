@@ -18,9 +18,9 @@ const postRoobot = async (req, res, next) => {
 };
 
 const getRoobotById = async (req, res, next) => {
-  const { id } = req.params;
+  const { idRobot } = req.params;
   try {
-    const searchedRoobot = await Roobot.findById(id);
+    const searchedRoobot = await Roobot.findById(idRobot);
     if (searchedRoobot) {
       res.json(searchedRoobot);
     } else {
