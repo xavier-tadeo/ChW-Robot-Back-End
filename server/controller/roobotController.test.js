@@ -4,7 +4,7 @@ const {
   getRandoomRoobots,
 } = require("../../mocks/factories");
 
-const { getRoobots, getRoobotById } = require("./roobotController");
+const { getRoobots, getRoobotById, postRoobot } = require("./roobotController");
 
 jest.mock("../../database/models/roobotModel.js");
 
@@ -91,6 +91,50 @@ describe("Given a getRoobotById function", () => {
   });
 });
 
-// describe("Given a postRoobot function", () => {
-//   descibe();
-// });
+describe("Given a postRoobot function", () => {
+  describe("When it receives a roobot object", () => {
+    test("The it should invoke the method json to create the roobot", async () => {
+      Roobot.create = jest.fn().mockResolvedValue(roobot);
+      const res = {
+        json: jest.fn(),
+      };
+      const req = {
+        body: roobot,
+      };
+
+      await postRoobot(req, res);
+
+      expect(Roobot.create).toHaveBeenCalled();
+      expect(Roobot.create).toHaveBeenCalledWith(roobot);
+    });
+  });
+  describe("When Roobot.create reject", () => {
+    test("Then it should invoke the next function with the error rejected", async () => {
+      const error = {};
+      Roobot.create = jest.fn().mockRejectedValue(error);
+      const req = {
+        body: roobot,
+      };
+      const res = { json: jest.fn() };
+      const next = jest.fn();
+
+      await postRoobot(req, res, next);
+
+      expect(Roobot.create).toHaveBeenCalled();
+      expect(next).toHaveBeenCalledWith(error);
+    });
+    test("Then it should invoke the next function with the error.code 400", async () => {
+      const error = {};
+      Roobot.create = jest.fn().mockRejectedValue(error);
+      const req = {
+        body: roobot,
+      };
+      const res = { json: jest.fn() };
+      const next = jest.fn();
+
+      await postRoobot(req, res, next);
+
+      expect(error.code).toBe(400);
+    });
+  });
+});
