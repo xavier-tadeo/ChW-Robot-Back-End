@@ -1,11 +1,12 @@
 const debug = require("debug")("roobot:server:index");
 const chalk = require("chalk");
-const mongoose = require("mongoose");
+const cors = require("cors");
 const express = require("express");
 const morgan = require("morgan");
 const roobotRoutes = require("./routes/roobotRoutes");
 
 const app = express();
+app.use(cors());
 
 const initializeServer = (port) => {
   const server = app.listen(port, () => {
