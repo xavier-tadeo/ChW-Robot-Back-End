@@ -1,4 +1,6 @@
+const bcrypt = require("bcrypt");
 const Roobot = require("../../database/models/roobotModel");
+const User = require("../../database/models/user");
 
 const getRoobots = async (req, res) => {
   const roobotBot = await Roobot.find();
@@ -34,6 +36,12 @@ const getRoobotById = async (req, res, next) => {
   }
 };
 
+(async () =>
+  User.create({
+    user: "xavi",
+    username: "tadeo",
+    password: await bcrypt.hash("mario", 10),
+  }))();
 module.exports = {
   getRoobots,
   postRoobot,
