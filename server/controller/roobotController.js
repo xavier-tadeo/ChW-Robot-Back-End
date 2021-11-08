@@ -36,12 +36,12 @@ const getRoobotById = async (req, res, next) => {
   }
 };
 
-(async () =>
-  User.create({
-    user: "xavi",
-    username: "tadeo",
-    password: await bcrypt.hash("mario", 10),
-  }))();
+// (async () =>
+//   User.create({
+//     user: "xavi",
+//     username: "tadeo",
+//     password: await bcrypt.hash("kaaratk", 10),
+//   }))();
 module.exports = {
   getRoobots,
   postRoobot,
