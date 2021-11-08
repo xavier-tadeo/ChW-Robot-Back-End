@@ -3,6 +3,7 @@ const chalk = require("chalk");
 const cors = require("cors");
 const express = require("express");
 const morgan = require("morgan");
+const userRoutes = require("./routes/usersRoutes");
 const roobotRoutes = require("./routes/roobotRoutes");
 
 const app = express();
@@ -28,5 +29,6 @@ app.use((req, res, next) => {
 });
 
 app.use("/robots", roobotRoutes);
+app.use("/user", userRoutes);
 
 module.exports = initializeServer;
