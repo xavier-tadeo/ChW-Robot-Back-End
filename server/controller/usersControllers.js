@@ -6,7 +6,7 @@ const loginUser = async (req, res, next) => {
   const { username, password } = req.body;
   try {
     const user = await User.findOne({ username });
-
+    console.log(user);
     if (!user) {
       const error = new Error("Don t authoriiiiiitze");
       error.code = 404;

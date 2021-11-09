@@ -10,7 +10,12 @@ const roobotRoutes = express.Router();
 
 roobotRoutes.get("/", getRoobots);
 
-roobotRoutes.post("/create", middlewareTooken, postRoobot);
+roobotRoutes.post(
+  "/create",
+
+  middlewareTooken,
+  postRoobot
+);
 
 roobotRoutes.get("/:idRobot", getRoobotById);
 
