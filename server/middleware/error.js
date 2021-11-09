@@ -1,5 +1,6 @@
 const { ValidationError } = require("express-validation");
 
+// eslint-disable-next-line no-unused-vars
 const handlerError = (err, req, res, next) => {
   if (err instanceof ValidationError) {
     err.code = 400;
