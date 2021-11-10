@@ -56,6 +56,7 @@ describe("Given a loginUser function", () => {
       await loginUser(req, res, next);
 
       expect(next).toHaveBeenCalledWith(error);
+      expect(next.mock.calls[0][0]).toHaveProperty("code", error.code);
     });
   });
   describe("When it receives a true username and true password", () => {
@@ -78,13 +79,13 @@ describe("Given a loginUser function", () => {
 
       bcrypt.compare = jest.fn().mockResolvedValue(true);
       const expectedToken = "Arlet";
-      jwt.sing = jest.fn().mockReturnValue(expectedToken);
+      jwt.sign = jest.fn().mockReturnValue(expectedToken);
 
       const expectedResponse = {
-        token: "Arlet",
+        token: expectedToken,
       };
 
-      await loginUser(req, res, null);
+      await loginUser(req, res);
 
       expect(res.json).toHaveBeenCalledWith(expectedResponse);
     });
