@@ -17,13 +17,13 @@ const loginUser = async (req, res, next) => {
     } else {
       const authPassword = await bcrypt.compare(password, user.password);
       if (!authPassword) {
-        console.log("Aqui");
         const error = new Error("Don t authoritze");
-        console.log("Hola rei");
+
         error.code = 404;
         next(error);
       } else {
         const token = jwt.sign({ password }, "secret");
+
         res.json({ token });
       }
     }
